@@ -10,14 +10,16 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
+          Realizacja zadania nr 1 w ramach laboratorium PFSwCO<br />
+          Grzegorz Derlatka
           <img src={logo} className="App-logo" alt="logo" />
           <Link to="/">Home</Link>
           <Link to="/calc">Fib Calc</Link>
-          <Link to="/otherpage">Documentation</Link>
+          <Link to="/docs">Documentation</Link>
         </header>
         <div>
           <Route exact path="/calc" component={Fib} />
-          <Route path="/otherpage" component={OtherPage} />
+          <Route path="/docs" component={OtherPage} />
         </div>
       </div>
     </Router>
