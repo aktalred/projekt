@@ -1,0 +1,24 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - docker build -t aktalred/projekt:test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true aktalred/projekt:test npm test
+
+after_success:
+  - docker build -t aktalred/projekt:fib-client ./client
+  - docker build -t aktalred/projekt:fib-nginx ./nginx
+  - docker build -t aktalred/projekt:fib-server ./server
+  - docker build -t aktalred/projekt:fib-worker ./worker
+  # Logowanie do docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push obrazow do docker hub
+  - docker push aktalred/projekt:fib-client
+  - docker push aktalred/projekt:fib-nginx
+  - docker push aktalred/projekt:fib-server
+  - docker push aktalred/projekt:fib-worker
