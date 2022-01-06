@@ -22,3 +22,16 @@ after_success:
   - docker push aktalred/projekt:fib-nginx
   - docker push aktalred/projekt:fib-server
   - docker push aktalred/projekt:fib-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "projekt"
+  env: "projekt-env"
+  bucket_name: "elasticbeanstalk-us-east-1-715792137848"
+  bucket_path: "projekt"
+  edge: true
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
